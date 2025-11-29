@@ -1,31 +1,310 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>时间之书</title>
+    <title>星之旅行 - Minecraft整合包</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 100%;
-			height:1200;
-            margin: 0 auto;
-            padding: 2rem;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        h1, h2, h3, h4, h5, h6 { margin-top: 1.5rem; margin-bottom: 1rem; }
-        pre { background: #f6f8fa; padding: 1rem; border-radius: 6px; overflow-x: auto; }
-        code { background: #f6f8fa; padding: 0.2rem 0.4rem; border-radius: 3px; }
-        blockquote { border-left: 4px solid #dfe2e5; padding-left: 1rem; margin: 1rem 0; color: #6a737d; }
-        table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
-        th, td { border: 1px solid #dfe2e5; padding: 0.5rem; text-align: left; }
-        th { background: #f6f8fa; }
+        
+        body {
+            background-color: #0a1929;
+            color: #e0f2ff;
+            line-height: 1.6;
+            background-image: linear-gradient(to bottom, #0a1929, #102a43);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #1e5799 0%, #207cca 51%, #2989d8 100%);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #e3f2fd;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #bbdefb;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        
+        .quick-download {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .quick-link {
+            color: #e3f2fd;
+            text-decoration: none;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .quick-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .card {
+            background-color: #1e3a5f;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #42a5f5;
+        }
+        
+        .card h2 {
+            color: #90caf9;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card h2::before {
+            content: "✦";
+            margin-right: 10px;
+            color: #42a5f5;
+        }
+        
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .screenshot-item {
+            border-radius: 8px;
+            overflow: hidden;
+            height: 200px;
+            background: linear-gradient(135deg, #1e3a5f, #2c5282);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #90caf9;
+            font-style: italic;
+            border: 1px solid #2c5282;
+        }
+        
+        .requirements {
+            list-style-type: none;
+        }
+        
+        .requirements li {
+            padding: 8px 0;
+            border-bottom: 1px solid #2c5282;
+            display: flex;
+            align-items: center;
+        }
+        
+        .requirements li:before {
+            content: "▸";
+            color: #42a5f5;
+            margin-right: 10px;
+        }
+        
+        .requirements li:last-child {
+            border-bottom: none;
+        }
+        
+        .issues {
+            list-style-type: none;
+            counter-reset: issue-counter;
+        }
+        
+        .issues li {
+            padding: 15px 0 15px 40px;
+            position: relative;
+            border-bottom: 1px solid #2c5282;
+        }
+        
+        .issues li:before {
+            counter-increment: issue-counter;
+            content: counter(issue-counter);
+            position: absolute;
+            left: 0;
+            top: 15px;
+            width: 28px;
+            height: 28px;
+            background-color: #42a5f5;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .tips {
+            background-color: #1a365d;
+            border-left: 4px solid #64b5f6;
+        }
+        
+        .tip-item {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .tip-item:before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+        }
+        
+        .warning {
+            color: #ffb74d;
+            font-weight: bold;
+        }
+        
+        code {
+            background-color: #0f2b4d;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #bbdefb;
+        }
+        
+        .download-section {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1a365d, #2c5282);
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #42a5f5, #1e88e5);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #64b5f6, #2196f3);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card {
+                padding: 15px;
+            }
+            
+            .screenshots {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-<h1 id="h1--"><a name="《时间之书：星之旅行》" class="reference-link"></a><span class="header-link octicon octicon-link"></span>《时间之书：星之旅行》</h1><p><strong>版本:</strong> 1.12.2  </p>
-<h6 id="h6--strong-strong-"><a name="&lt;strong&gt;下载链接:&lt;/strong&gt;   点击下载" class="reference-link"></a><span class="header-link octicon octicon-link"></span><strong>下载链接:</strong> <a href="http://114.66.26.229:8443/d/s/15zxxYZ5t5cevWNaHaf5E7uuGYkwAgZ2/webapi/entry.cgi/SYNO.SynologyDrive.Files/%E6%97%B6%E9%97%B4%E4%B9%8B%E4%B9%A6%EF%BC%9A%E6%98%9F%E4%B9%8B%E6%97%85%E8%A1%8C-%E6%96%B0-1.0%EF%BC%88%E9%9C%80%E8%A6%81%E8%A7%A3%E5%8E%8B%EF%BC%89.zip?api=SYNO.SynologyDrive.Files&method=download&version=2&download_type=%22download%22&files=%5B%22id%3A920514703183093825%22%5D&force_download=true&json_error=true&_dc=1764432832618&sharing_token=%22nO118zYkBkrz3H_qImkOeOmHOIwfk6cekQbklfjKRVlW6FnRksMgNYgm1tDNN6V1RZ3O4i6LsKBZsDq7BCaQNE3U.z90T.h7SVA94eGle9SIY0JOP_9OXw9ygWcrCDVjDc9lV3urwCfD6dg_s6WTBvl2QvUPnNcTWAneyEb.oqA5sQnSq_80Pyvka3l3Y5v0jQtq3O2A21dFhONHLv47N_yR_YONN02MPvzRV7ry__grQmG_AUmNSYW2G4xzzVCJHqKMLiq2d20oX3h7xVFrw_l5CeESGGo9AvuP9a6nal6UUKdM12S4_w3YO6zH47YoTS3w%22&SynoToken=BTnzwHN8P2alE">点击下载</a></h6>
+    <div class="container">
+        <header>
+            <h1>星之旅行</h1>
+            <p class="subtitle">高版本重置版 · 一款独特的休闲枪械整合包</p>
+            <div class="quick-download">
+                <a href="#download" class="quick-link">快速跳转到下载</a>
+            </div>
+        </header>
+        
+        <section class="card">
+            <h2>整合包介绍</h2>
+            <p>《星之旅行》是一款基于Minecraft高版本的休闲枪械整合包，在保留原版游戏精髓的基础上，融入了丰富的枪械元素和其他游戏的设计灵感。</p>
+            <p>在游玩过程中，您会发现其中蕴含的其他游戏的影子，无论是建筑、休闲探索还是战斗体验，都将带给您安心愉悦的感受。</p>
+            <p>准备好向这个充满未知的世界出发吧~</p>
+        </section>
+        
+        <section class="card">
+            <h2>游戏截图</h2>
+            <div class="screenshots">
+                <img src=＂tp1.jpg＂>
+                <img src=＂tp2.jpg＂>
+            </div>
+        </section>
+        
+        <section class="card">
+            <h2>设备需求</h2>
+            <ul class="requirements">
+                <li>内存：8-16GB（建议分配8GB以上）</li>
+                <li>Java版本：JAVA 17 64位（32位版本可能会出现卡顿）</li>
+                <li class="warning">注意：配置过低可能导致游戏无法启动或运行卡顿</li>
+                <li>提示：部分模组可能存在崩溃风险，遇到时可尝试重启游戏；若问题持续，请查阅百科寻求帮助</li>
+            </ul>
+        </section>
+        
+        <section class="card">
+            <h2>游玩指南与注意事项</h2>
+            <ol class="issues">
+                <li>如遇到模组崩溃，请尝试重启游戏；若问题依旧，建议备份存档后重新安装整合包。</li>
+                <li>任务系统无法提交时，可使用指令 <code>/ftbquests editing_mode</code> 开启任务编辑模式。完成后请及时关闭该模式，除非您需要继续修改任务。</li>
+                <li>任务无法解锁下一个阶段时，请检查是否已完成所有前置任务（部分任务可能有多个前置条件）。</li>
+                <li>不建议随意添加额外模组，如需添加请确保有相关经验或寻求百科帮助，并在操作前备份存档。</li>
+                <li>遇到游戏卡顿，请按以下顺序调整设置：
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li>光影与动画设置</li>
+                        <li>品质自定义选项</li>
+                        <li>性能相关设置</li>
+                        <li>其他高级设置</li>
+                        <li>光影配置调整</li>
+                        <li>细节渲染选项</li>
+                        <li>资源包优先级</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+        
+        <section class="card tips">
+            <h2>小贴士</h2>
+            <div class="tip-item">这不是一个普通的枪械整合包，其中包含了许多独特的设计元素。</div>
+            <div class="tip-item">请遵守游戏规则，规范游玩行为。</div>
+            <div class="tip-item">时间之书是一个系列！</div>
+        </section>
+        
+        <section id="download" class="download-section">
+            <h2>下载整合包</h2>
+            <p>点击下方按钮下载《星之旅行》整合包</p>
+            <a href="http://114.66.26.229:8443/d/s/15zxxYZ5t5cevWNaHaf5E7uuGYkwAgZ2/webapi/entry.cgi/SYNO.SynologyDrive.Files/%E6%97%B6%E9%97%B4%E4%B9%8B%E4%B9%A6%EF%BC%9A%E6%98%9F%E4%B9%8B%E6%97%85%E8%A1%8C-%E6%96%B0-1.0%EF%BC%88%E9%9C%80%E8%A6%81%E8%A7%A3%E5%8E%8B%EF%BC%89.zip?api=SYNO.SynologyDrive.Files&method=download&version=2&download_type=%22download%22&files=%5B%22id%3A920514703183093825%22%5D&force_download=true&json_error=true&_dc=1764432832618&sharing_token=%22nO118zYkBkrz3H_qImkOeOmHOIwfk6cekQbklfjKRVlW6FnRksMgNYgm1tDNN6V1RZ3O4i6LsKBZsDq7BCaQNE3U.z90T.h7SVA94eGle9SIY0JOP_9OXw9ygWcrCDVjDc9lV3urwCfD6dg_s6WTBvl2QvUPnNcTWAneyEb.oqA5sQnSq_80Pyvka3l3Y5v0jQtq3O2A21dFhONHLv47N_yR_YONN02MPvzRV7ry__grQmG_AUmNSYW2G4xzzVCJHqKMLiq2d20oX3h7xVFrw_l5CeESGGo9AvuP9a6nal6UUKdM12S4_w3YO6zH47YoTS3w%22&SynoToken=BTnzwHN8P2alE" class="download-btn" target="_blank">立即下载</a>
+        </section>
+    </div>
 </body>
 </html>
